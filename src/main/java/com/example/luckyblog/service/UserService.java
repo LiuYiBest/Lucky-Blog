@@ -1,5 +1,6 @@
 package com.example.luckyblog.service;
 
+import com.example.luckyblog.entity.User;
 import com.example.luckyblog.mapper.UserMapper;
 
 import javax.inject.Inject;
