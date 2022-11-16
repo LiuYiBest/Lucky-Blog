@@ -25,7 +25,6 @@ import java.util.Map;
 public class AuthController {
     private UserDetailsService userDetailsService;
     private UserService userService;
-
     private AuthenticationManager authenticationManager;
 
 
