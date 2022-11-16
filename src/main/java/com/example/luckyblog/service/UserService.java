@@ -5,6 +5,7 @@ import com.example.luckyblog.mapper.UserMapper;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.Collections;
@@ -16,6 +17,7 @@ import java.util.concurrent.ConcurrentMap;
 /**
  * @author liuyidiao
  */
+@Service
 public class UserService implements UserDetailsService {
 
     private Map<String,String> userPasswords =new ConcurrentHashMap<>() ;
@@ -48,7 +50,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if (userPasswords.containsKey(username)){
+        if (!userPasswords.containsKey(username)){
             throw new UsernameNotFoundException(username+"不存在!");
         }
         String password =userPasswords.get(username);
