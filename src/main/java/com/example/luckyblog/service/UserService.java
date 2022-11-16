@@ -56,6 +56,10 @@ public class UserService implements UserDetailsService {
         return userMapper.findUserById(id);
     }
 
+    public User getUserByusername(String username){
+        return new User(1,username);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         if (!userPasswords.containsKey(username)){

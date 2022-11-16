@@ -1,6 +1,7 @@
 package com.example.luckyblog.controller;
 
 import com.example.luckyblog.entity.User;
+import com.example.luckyblog.service.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,10 +24,13 @@ import java.util.Map;
 @Controller
 public class AuthController {
     private UserDetailsService userDetailsService;
+    private UserService userService;
+
     private AuthenticationManager authenticationManager;
 
+
     @Inject
-    public AuthController(UserDetailsService userDetailsService, AuthenticationManager authenticationManager) {
+    public AuthController(UserService userService,UserDetailsService userDetailsService, AuthenticationManager authenticationManager) {
         this.userDetailsService = userDetailsService;
         this.authenticationManager = authenticationManager;
     }
@@ -34,7 +38,14 @@ public class AuthController {
     @GetMapping("/auth")
     @ResponseBody
     public Object auth(ModelMap map) {
-        return new Result("Ok", "用户没有登录", false);
+//
+
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (userName.contains("anonymous")){
+            return new Result("Ok", "用户没有登录", false);
+        }else{
+            return new Result("ok",null,true,userService.getUserByusername(userName));
+        }
     }
 
     @PostMapping("/auth/login")
@@ -55,6 +66,8 @@ public class AuthController {
 //       如果登录失败
         try {
             authenticationManager.authenticate(token);
+//            用户信息保存
+
             SecurityContextHolder.getContext().setAuthentication(token);
             User loggedInUser = new User(1, "张三");
             return new Result("ok", "登录成功", true, loggedInUser);
