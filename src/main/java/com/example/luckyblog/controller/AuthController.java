@@ -31,6 +31,7 @@ public class AuthController {
 
     @Inject
     public AuthController(UserService userService,UserDetailsService userDetailsService, AuthenticationManager authenticationManager) {
+        this.userService = userService;
         this.userDetailsService = userDetailsService;
         this.authenticationManager = authenticationManager;
     }
