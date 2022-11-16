@@ -41,6 +41,8 @@ public class AuthController {
 //
 
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+
+
         if (userName.contains("anonymous")){
             return new Result("Ok", "用户没有登录", false);
         }else{
@@ -69,7 +71,7 @@ public class AuthController {
 //            用户信息保存
 
             SecurityContextHolder.getContext().setAuthentication(token);
-            User loggedInUser = new User(1, "张三");
+            User loggedInUser = new User(1, "张三","root");
             return new Result("ok", "登录成功", true, loggedInUser);
         } catch (BadCredentialsException e) {
             return new Result("fail", "密码不正确", false);
