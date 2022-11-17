@@ -57,7 +57,6 @@ public class UserService implements UserDetailsService {
 //        return new User(id,"");
         return userMapper.findUserById(id);
     }
-
     public String getUserByusername(String username){
         return users.get(username);
     }
