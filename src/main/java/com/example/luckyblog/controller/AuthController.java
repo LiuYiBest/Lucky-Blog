@@ -68,8 +68,7 @@ public class AuthController {
 //       如果登录失败
         try {
             authenticationManager.authenticate(token);
-//            用户信息保存
-
+//
             SecurityContextHolder.getContext().setAuthentication(token);
             User loggedInUser = new User(1, "张三","root");
             return new Result("ok", "登录成功", true, loggedInUser);
